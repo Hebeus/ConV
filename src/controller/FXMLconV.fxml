@@ -6,9 +6,28 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.FXMLcontroller">
+<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controller.FXMLcontroller">
     <children>
-        <Button layoutX="126" layoutY="90" text="Me click!" onAction="#handleButtonAction" fx:id="button" />
-        <Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" fx:id="label" />
+        <Button fx:id="button" layoutX="126" layoutY="90" onAction="#handleButtonAction" text="Me click!" />
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <Accordion layoutX="14.0" layoutY="14.0">
+        <panes>
+          <TitledPane animated="false" text="untitled 1">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </TitledPane>
+          <TitledPane animated="false" text="untitled 2">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </TitledPane>
+          <TitledPane animated="false" text="untitled 3">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </TitledPane>
+        </panes>
+      </Accordion>
     </children>
 </AnchorPane>
