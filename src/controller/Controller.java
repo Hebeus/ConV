@@ -26,7 +26,7 @@ public class Controller extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("controller.Controller.main()");
+        System.out.println("Teste2");
         launch(args);
     }
     
