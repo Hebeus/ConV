@@ -32,3 +32,7 @@ nb-configuration.xml
 hs_err_pid*
 manifest.mf
 build.xml
+nbproject/project.xml
+nbproject/project.properties
+nbproject/genfiles.properties
+nbproject/build-impl.xml
