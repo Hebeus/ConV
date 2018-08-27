@@ -13,7 +13,7 @@
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Accordion layoutX="14.0" layoutY="14.0" />
       <Accordion layoutX="28.0" layoutY="19.0" />
-      <Accordion layoutX="-1.0" layoutY="24.0" prefHeight="182.0" prefWidth="202.0">
+      <Accordion layoutY="81.0" prefHeight="182.0" prefWidth="202.0">
         <panes>
           <TitledPane animated="false" text="Categoria de Produto">
             <content>
@@ -27,14 +27,7 @@
           </TitledPane>
           <TitledPane animated="false" text="Cliente">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                          <Button fx:id="button" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="200.0" text="Novo Cliente" textAlignment="JUSTIFY" textOverrun="CLIP">
-                           <cursor>
-                              <Cursor fx:constant="DEFAULT" />
-                           </cursor>
-                        </Button>
-                     </children></AnchorPane>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </TitledPane>
           <TitledPane animated="false" text="Registro de Vendas">
@@ -63,5 +56,17 @@
           </Menu>
         </menus>
       </MenuBar>
+      <ToolBar layoutY="24.0" prefHeight="40.0" prefWidth="551.0">
+        <items>
+          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Categoria de Produto" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Produto" />
+              <Button fx:id="button" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="133.0" text="Cliente" textAlignment="JUSTIFY" textOverrun="CLIP">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </Button>
+            <Button mnemonicParsing="false" prefWidth="125.0" text="Registro de Vendas" />
+        </items>
+      </ToolBar>
     </children>
 </AnchorPane>
