@@ -5,12 +5,12 @@
  */
 package telas.produto.create;
 
+import entities.CategoriaProduto;
+import entities.Produto;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-import model.CategoriaProduto;
-import model.Produto;
 
 /**
  * FXML Controller class
