@@ -59,7 +59,7 @@ private static CategoriaProduto categoriaProduto;
    
         @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../telas/FXMLconV.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLconV.fxml"));
         
         Scene scene = new Scene(root);
         

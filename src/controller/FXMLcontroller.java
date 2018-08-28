@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package telas;
+package controller;
 
 
 import entities.CategoriaProduto;
@@ -46,7 +46,7 @@ public class FXMLcontroller implements Initializable {
     private void handleButtonAction(ActionEvent event) {
         Parent root;
     try {
-        root = FXMLLoader.load(getClass().getResource("cliente/create/FXMLclienteCreate.fxml"));      
+        root = FXMLLoader.load(getClass().getResource("telas/cliente/create/FXMLclienteCreate.fxml"));      
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);

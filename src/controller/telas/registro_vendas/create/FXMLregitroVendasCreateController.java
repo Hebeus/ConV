@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package telas.cliente.create;
+package controller.telas.registro_vendas.create;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author wesle
  */
-public class FXMLclienteCreateController implements Initializable {
+public class FXMLregitroVendasCreateController implements Initializable {
 
     /**
      * Initializes the controller class.

@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package telas.produto.create;
+package controller.telas.categoria_produto.create;
 
-import entities.CategoriaProduto;
-import entities.Produto;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
@@ -17,9 +14,8 @@ import javafx.fxml.Initializable;
  *
  * @author wesle
  */
-public class FXMLcadastroProdutoController implements Initializable {
-    private ArrayList<CategoriaProduto> cartegoriaGeral;
-    private Produto produto;
+public class FXMLcategoriaProdutoCreateController implements Initializable {
+
     /**
      * Initializes the controller class.
      */
