@@ -10,33 +10,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="402.0" prefWidth="555.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLcontroller">
     <children>
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+        <Label fx:id="label" layoutX="241.0" layoutY="184.0" minHeight="16" minWidth="69" />
       <Accordion layoutX="14.0" layoutY="14.0" />
       <Accordion layoutX="28.0" layoutY="19.0" />
-      <Accordion layoutY="81.0" prefHeight="182.0" prefWidth="202.0">
-        <panes>
-          <TitledPane animated="false" text="Categoria de Produto">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </TitledPane>
-          <TitledPane animated="false" text="Produto">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </TitledPane>
-          <TitledPane animated="false" text="Cliente">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </TitledPane>
-          <TitledPane animated="false" text="Registro de Vendas">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </TitledPane>
-        </panes>
-      </Accordion>
       <MenuBar layoutY="-1.0" prefHeight="25.0" prefWidth="553.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
@@ -61,9 +37,7 @@
           <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Categoria de Produto" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Produto" />
               <Button fx:id="button" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="133.0" text="Cliente" textAlignment="JUSTIFY" textOverrun="CLIP">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
+
             </Button>
             <Button mnemonicParsing="false" prefWidth="125.0" text="Registro de Vendas" />
         </items>

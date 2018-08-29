@@ -165,7 +165,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Cliente[ id=" + id + " ]";
+        return razaoSocial;
     }
     
 }

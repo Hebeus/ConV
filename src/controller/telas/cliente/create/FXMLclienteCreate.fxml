@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -10,27 +11,54 @@
    <children>
       <TabPane prefHeight="408.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
+          <Tab text="Clientes ">
+               <content>
+                  <ScrollPane prefHeight="641.0" prefWidth="600.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="726.0" prefWidth="604.0">
+                           <children>
+                              <ListView fx:id="clientlist" layoutX="14.0" layoutY="48.0" prefHeight="284.0" prefWidth="106.0" />
+                              <TableView layoutX="138.0" layoutY="48.0" prefHeight="200.0" prefWidth="286.0">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="C1" />
+                                  <TableColumn prefWidth="75.0" text="C2" />
+                                  <TableColumn prefWidth="75.0" text="C3" />
+                                  <TableColumn prefWidth="75.0" text="C4" />
+                                </columns>
+                              </TableView>
+                           </children></AnchorPane>
+                    </content>
+                  </ScrollPane>
+               </content>
+          </Tab>
           <Tab text="Novo Cliente">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="600.0">
                      <children>
                         <ScrollPane layoutX="2.0" layoutY="1.0" prefHeight="372.0" prefWidth="598.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="596.0" />
+                            <AnchorPane id="cpf" minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="596.0">
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="49.0" prefHeight="17.0" prefWidth="82.0" text="Razão Social:" />
+                                    <Label layoutX="14.0" layoutY="86.0" text="CPF:" />
+                                    <Label layoutX="12.0" layoutY="121.0" text="Telefone 1:" />
+                                    <Label layoutX="12.0" layoutY="152.0" text="Telefone 2:" />
+                                    <Label layoutX="12.0" layoutY="187.0" text="Endereço:" />
+                                    <Label layoutX="12.0" layoutY="221.0" text="CEP:" />
+                                    <Button fx:id="button" layoutX="242.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Salvar" />
+                                    <TextField fx:id="nome" layoutX="96.0" layoutY="45.0" prefHeight="25.0" prefWidth="329.0" />
+                                    <TextField fx:id="cpf" layoutX="96.0" layoutY="82.0" onAction="#handleTextsFieldAction" />
+                                    <TextField fx:id="tel1" layoutX="96.0" layoutY="117.0" onAction="#handleTextsFieldAction" />
+                                    <TextField fx:id="tel2" layoutX="96.0" layoutY="148.0" onAction="#handleTextsFieldAction" />
+                                    <TextField fx:id="endereco" layoutX="96.0" layoutY="183.0" onAction="#handleTextsFieldAction" prefHeight="25.0" prefWidth="325.0" />
+                                    <TextField fx:id="cep" layoutX="96.0" layoutY="217.0" onAction="#handleTextsFieldAction" />
+                                    <Label fx:id="resultadoCreate" layoutX="245.0" layoutY="14.0" />
+                                 </children></AnchorPane>
                           </content>
                         </ScrollPane>
                      </children>
                   </AnchorPane>
             </content>
-          </Tab>
-          <Tab text="Clientes ">
-               <content>
-                  <ScrollPane prefHeight="641.0" prefWidth="600.0">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="726.0" prefWidth="604.0" />
-                    </content>
-                  </ScrollPane>
-               </content>
           </Tab>
         </tabs>
       </TabPane>
