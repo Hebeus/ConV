@@ -60,7 +60,19 @@ import session.ClienteFacade;
  * @author wesle
  */
 public class FXMLclienteCreateController extends Application implements Initializable {
-
+    
+    @FXML
+    private Label nomeView;
+    @FXML
+    private Label cpfView;
+    @FXML
+    private Label tel1View;
+    @FXML
+    private Label tel2View;
+    @FXML
+    private Label enderecoView;
+    @FXML
+    private Label cepView;
     @FXML
     private TextField nome;
     @FXML
@@ -195,6 +207,12 @@ public class FXMLclienteCreateController extends Application implements Initiali
     private void editNomeAction() {
         clienteSelecionado = tableClientes.getSelectionModel().getSelectedItem();
 //        System.out.println("Cliente: " + clienteSelecionado.getRazaoSocial());
+        nomeView.setText(clienteSelecionado.getRazaoSocial());
+        cpfView.setText(clienteSelecionado.getCpf());
+        tel1View.setText(clienteSelecionado.getTelefone1());
+        tel2View.setText(clienteSelecionado.getTelefone2());
+        enderecoView.setText(clienteSelecionado.getEndereco());
+        cepView.setText(clienteSelecionado.getCep());
     }
 
     public void pegaNomeDoItemSelecionado() {

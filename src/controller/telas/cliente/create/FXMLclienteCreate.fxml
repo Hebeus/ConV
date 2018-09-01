@@ -28,11 +28,25 @@
                                     <TableColumn fx:id="nomeCol1" onEditCommit="#editNomeAction" onEditStart="#editNomeAction" prefWidth="268.0" text="Nome" />
                                  </columns>
                               </TableView>
-                              <Button layoutX="644.0" layoutY="461.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Editar" textFill="#279ecd" AnchorPane.bottomAnchor="60.0" />
-                              <Label layoutX="525.0" layoutY="35.0" text="Nome:" />
-                              <Label layoutX="529.0" layoutY="68.0" text="CPF:" />
-                              <Label layoutX="527.0" layoutY="99.0" text="Telefone 1:" />
-                              <Label layoutX="528.0" layoutY="129.0" text="Telefone 2:" />
+                              <Button layoutX="556.0" layoutY="461.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Editar" textFill="#279ecd" AnchorPane.bottomAnchor="60.0" />
+                              <Label layoutX="527.0" layoutY="71.0" text="Nome:" />
+                              <Label layoutX="528.0" layoutY="104.0" text="CPF:" />
+                              <Label layoutX="527.0" layoutY="135.0" text="Telefone 1:" />
+                              <Label layoutX="527.0" layoutY="165.0" text="Telefone 2:" />
+                              <Label layoutX="529.0" layoutY="199.0" text="Endereço:" />
+                              <Label layoutX="529.0" layoutY="232.0" text="CEP:" />
+                              <Label fx:id="nomeView" layoutX="614.0" layoutY="71.0" prefHeight="17.0" prefWidth="274.0" underline="true" />
+                              <Label fx:id="cpfView" layoutX="615.0" layoutY="104.0" prefHeight="17.0" prefWidth="110.0" underline="true" />
+                              <Label fx:id="tel1View" layoutX="615.0" layoutY="135.0" prefHeight="17.0" prefWidth="111.0" underline="true" />
+                              <Label fx:id="tel2View" layoutX="615.0" layoutY="165.0" prefHeight="17.0" prefWidth="105.0" underline="true" />
+                              <Label fx:id="enderecoView" layoutX="615.0" layoutY="199.0" prefHeight="17.0" prefWidth="277.0" underline="true" />
+                              <Label fx:id="cepView" layoutX="615.0" layoutY="232.0" prefHeight="17.0" prefWidth="102.0" underline="true" />
+                              <Button layoutX="717.0" layoutY="461.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Deletar" textFill="#ba4423" />
+                              <Label layoutX="644.0" layoutY="22.0" text="FICHA DO CLIENTE">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                      </children>
