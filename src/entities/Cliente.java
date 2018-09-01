@@ -178,5 +178,9 @@ public class Cliente implements Serializable {
     public String toString() {
         return razaoSocial;
     }
+
+    public void setFirstName(String oldValue) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

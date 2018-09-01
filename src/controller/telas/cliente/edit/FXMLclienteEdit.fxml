@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.telas.cliente.edit.FXMLclienteEditController">
+    <children>
+        <ScrollPane layoutX="2.0" layoutY="1.0" prefHeight="856.0" prefWidth="914.0">
+            <content>
+                <AnchorPane id="cpf" minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="908.0">
+                    <children>
+                        <Label layoutX="14.0" layoutY="49.0" prefHeight="17.0" prefWidth="82.0" text="Razão Social:" />
+                        <Label layoutX="14.0" layoutY="86.0" text="CPF:" />
+                        <Label layoutX="12.0" layoutY="121.0" text="Telefone 1:" />
+                        <Label layoutX="12.0" layoutY="152.0" text="Telefone 2:" />
+                        <Label layoutX="12.0" layoutY="187.0" text="Endereço:" />
+                        <Label layoutX="12.0" layoutY="221.0" text="CEP:" />
+                        <Button fx:id="button" layoutX="242.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleButtonAction"  text="Salvar" />
+                        <TextField fx:id="nome" layoutX="96.0" layoutY="45.0" prefHeight="25.0" prefWidth="329.0" />
+                        <TextField fx:id="cpf" layoutX="96.0" layoutY="82.0"  />
+                        <TextField fx:id="tel1" layoutX="96.0" layoutY="117.0" />
+                        <TextField fx:id="tel2" layoutX="96.0" layoutY="148.0"  />
+                        <TextField fx:id="endereco" layoutX="96.0" layoutY="183.0" prefHeight="25.0" prefWidth="325.0" />
+                        <TextField fx:id="cep" layoutX="96.0" layoutY="217.0"  />
+                        <Label fx:id="resultadoCreate" layoutX="245.0" layoutY="14.0" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

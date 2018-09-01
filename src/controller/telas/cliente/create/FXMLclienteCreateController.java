@@ -5,6 +5,8 @@
  */
 package controller.telas.cliente.create;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import controller.FXMLcontroller;
 import entities.Cliente;
 import java.io.IOException;
@@ -18,11 +20,13 @@ import javafx.application.Application;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,7 +39,10 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -88,27 +95,29 @@ public class FXMLclienteCreateController extends Application implements Initiali
     private TableColumn<Cliente, String> cepCol;
     @FXML
     private Button listaAtual;
+    private Cliente clienteSelecionado;
     private Event event;
     @FXML
     protected ListProperty<Cliente> listProperty = new SimpleListProperty<>();
     private List<Cliente> clientes;
 
     public FXMLclienteCreateController() {
-
+        clienteSelecionado = new Cliente();
         clientes = new ArrayList<>();
+        clientes = listaDeClientes();
     }
+
     @Override
-    public void start(Stage stage){
-        
-    
+    public void start(Stage stage) {
+
     }
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
         nomeCol.setCellValueFactory(
                 new PropertyValueFactory<>("razaoSocial"));
         cpfCol.setCellValueFactory(
@@ -119,21 +128,11 @@ public class FXMLclienteCreateController extends Application implements Initiali
                 new PropertyValueFactory<>("endereco"));
         cepCol.setCellValueFactory(
                 new PropertyValueFactory<>("cep"));
-        selectCol.setCellValueFactory(
-                new PropertyValueFactory<>("selected"));
+
         nomeCol.setCellFactory(
                 TextFieldTableCell.forTableColumn());
-        selectCol.setCellFactory(
-                CheckBoxTableCell.forTableColumn(selectCol));
+
         tableClientes.setItems(listaDeClientes());
-        
-        
-        //nomeCol.setCellFactory((Callback<TableColumn<Cliente, String>, TableCell<Cliente, String>>) nomeCol);
-//         ClienteFacade clienteFacade = new ClienteFacade();
-//        clientes = clienteFacade.findClientes();
-//        FXCollections.observableArrayList(clientes);
-//        clientlist.itemsProperty().bind(listProperty);
-//        listProperty.set(FXCollections.observableArrayList(clientes));
 
     }
 
@@ -146,13 +145,13 @@ public class FXMLclienteCreateController extends Application implements Initiali
     @FXML
     private void handleTextsFieldAction(ActionEvent event) {
         resultadoCreate.setText("sdfs");
-
     }
 
     @FXML
     private void verListaAction(ActionEvent event) {
-        
-        listProperty.set(FXCollections.observableArrayList(clientes));
+
+        // TableView t = new TableView(FXCollections.observableArrayList());
+        listProperty.set(FXCollections.observableArrayList());
         resultadoCreate.setText("sdfs");
 
     }
@@ -179,6 +178,8 @@ public class FXMLclienteCreateController extends Application implements Initiali
         //Atualiza a lista de clientes na tela
         listProperty.set(FXCollections.observableArrayList(clientes));
         tableClientes.setItems(listaDeClientes());
+        nomeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        tableClientes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 //         resultadoCreate.setText("");
         nome.setText("");
         cpf.setText("");
@@ -190,17 +191,90 @@ public class FXMLclienteCreateController extends Application implements Initiali
 
     }
 
-    
-    
     @FXML
     private void editNomeAction() {
-        boolean check = tableClientes.getSelectionModel().getSelectedItem().isSelected();
-//        String nome = nomeCol.
+        clienteSelecionado = tableClientes.getSelectionModel().getSelectedItem();
+//        System.out.println("Cliente: " + clienteSelecionado.getRazaoSocial());
+    }
 
-    //   nomeCol.setCellValueFactory((CellDataFeatures<Cliente, String> c) -> new SimpleStringProperty(c.getValue().getRazaoSocial()));
-//           String nome = tableClientes.getSelectionModel().getSelectedItem().getRazaoSocial();
-    
-       // String nome = nomeCol.getCellData(tableClientes.getSelectionModel().getSelectedItem());
-//Cliente c = tableClientes.getItems().get()
+    public void pegaNomeDoItemSelecionado() {
+
+        tableClientes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
+                //Check whether item is selected and set value of selected item to Label
+                if (tableClientes.getSelectionModel().getSelectedItem() != null) {
+                    TableViewSelectionModel selectionModel = tableClientes.getSelectionModel();
+                    ObservableList selectedCells = selectionModel.getSelectedCells();
+                    TablePosition tablePosition = (TablePosition) selectedCells.get(0);
+                    Object val = tablePosition.getTableColumn().getCellData(newValue);
+                    System.out.println("Selected Value" + val);
+                }
+            }
+        });
+    }
+}
+
+class EditingCell extends TableCell<Cliente, String> {
+
+    private TextField textField;
+
+    public EditingCell() {
+    }
+
+    @Override
+    public void startEdit() {
+        if (!isEmpty()) {
+            super.startEdit();
+            createTextField();
+            setText(null);
+            setGraphic(textField);
+            textField.selectAll();
+        }
+    }
+
+    @Override
+    public void cancelEdit() {
+        super.cancelEdit();
+
+        setText((String) getItem());
+        setGraphic(null);
+    }
+
+    @Override
+    public void updateItem(String item, boolean empty) {
+        super.updateItem(item, empty);
+
+        if (empty) {
+            setText(null);
+            setGraphic(null);
+        } else if (isEditing()) {
+            if (textField != null) {
+                textField.setText(getString());
+            }
+            setText(null);
+            setGraphic(textField);
+        } else {
+            setText(getString());
+            setGraphic(null);
+        }
+    }
+
+    private void createTextField() {
+        textField = new TextField(getString());
+        textField.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
+        textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0,
+                    Boolean arg1, Boolean arg2) {
+                if (!arg2) {
+                    commitEdit(textField.getText());
+                }
+            }
+        });
+    }
+
+    private String getString() {
+        return getItem() == null ? "" : getItem().toString();
     }
 }

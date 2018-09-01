@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,67 +8,68 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="1040.0" prefWidth="964.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.telas.cliente.create.FXMLclienteCreateController">
+<AnchorPane id="AnchorPane" prefHeight="593.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.telas.cliente.create.FXMLclienteCreateController">
    <children>
-      <ScrollPane prefHeight="1040.0" prefWidth="981.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="735.0" prefWidth="1017.0">
-               <children>
-                  <TabPane prefHeight="663.0" prefWidth="1001.0" tabClosingPolicy="UNAVAILABLE">
-                    <tabs>
-                      <Tab text="Clientes ">
-                           <content>
-                              <TableView fx:id="tableClientes" editable="true" prefHeight="594.0" prefWidth="640.0">
+      <TabPane layoutX="-6.0" prefHeight="593.0" prefWidth="913.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Clientes ">
+               <content>
+                  <AnchorPane prefHeight="512.0" prefWidth="881.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="546.0" prefWidth="906.0">
+                           <children>
+                              <TableView fx:id="tableClientes" layoutX="7.0" layoutY="-2.0" onMouseClicked="#editNomeAction" prefHeight="567.0" prefWidth="480.0">
                                  <columns>
-                                    <TableColumn fx:id="selectCol" prefWidth="28.0" />
-                                    <TableColumn fx:id="nomeCol" editable="true" onEditCommit="#editNomeAction" prefWidth="268.0" text="Nome" />
+                                    <TableColumn fx:id="nomeCol" prefWidth="268.0" text="Nome" />
                                     <TableColumn fx:id="cpfCol" prefWidth="106.0" text="CPF" />
                                     <TableColumn fx:id="numeroCol" prefWidth="105.0" text="Telefone" />
-                                    <TableColumn fx:id="enderecoCol" minWidth="0.0" prefWidth="299.0" text="Endereço" />
-                                    <TableColumn fx:id="cepCol" prefWidth="108.0" text="CEP" />
-                                    <TableColumn prefWidth="75.0" text="Column X">
-                                    </TableColumn>
+                                    <TableColumn fx:id="enderecoCol" minWidth="0.0" prefWidth="337.0" text="Endereço" />
+                                    <TableColumn fx:id="cepCol" prefWidth="91.0" text="CEP" />
+                                    <TableColumn fx:id="nomeCol1" onEditCommit="#editNomeAction" onEditStart="#editNomeAction" prefWidth="268.0" text="Nome" />
                                  </columns>
                               </TableView>
-                           </content>
-                      </Tab>
-                      <Tab text="Novo Cliente">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="600.0">
+                              <Button layoutX="644.0" layoutY="461.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Editar" textFill="#279ecd" AnchorPane.bottomAnchor="60.0" />
+                              <Label layoutX="525.0" layoutY="35.0" text="Nome:" />
+                              <Label layoutX="529.0" layoutY="68.0" text="CPF:" />
+                              <Label layoutX="527.0" layoutY="99.0" text="Telefone 1:" />
+                              <Label layoutX="528.0" layoutY="129.0" text="Telefone 2:" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+          </Tab>
+          <Tab text="Novo Cliente">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="600.0">
+                     <children>
+                        <ScrollPane layoutX="2.0" layoutY="1.0" prefHeight="856.0" prefWidth="914.0">
+                          <content>
+                            <AnchorPane id="cpf" minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="908.0">
                                  <children>
-                                    <ScrollPane layoutX="2.0" layoutY="1.0" prefHeight="856.0" prefWidth="914.0">
-                                      <content>
-                                        <AnchorPane id="cpf" minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="908.0">
-                                             <children>
-                                                <Label layoutX="14.0" layoutY="49.0" prefHeight="17.0" prefWidth="82.0" text="Razão Social:" />
-                                                <Label layoutX="14.0" layoutY="86.0" text="CPF:" />
-                                                <Label layoutX="12.0" layoutY="121.0" text="Telefone 1:" />
-                                                <Label layoutX="12.0" layoutY="152.0" text="Telefone 2:" />
-                                                <Label layoutX="12.0" layoutY="187.0" text="Endereço:" />
-                                                <Label layoutX="12.0" layoutY="221.0" text="CEP:" />
-                                                <Button fx:id="button" layoutX="242.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Salvar" />
-                                                <TextField fx:id="nome" layoutX="96.0" layoutY="45.0" prefHeight="25.0" prefWidth="329.0" />
-                                                <TextField fx:id="cpf" layoutX="96.0" layoutY="82.0" onAction="#handleTextsFieldAction" />
-                                                <TextField fx:id="tel1" layoutX="96.0" layoutY="117.0" onAction="#handleTextsFieldAction" />
-                                                <TextField fx:id="tel2" layoutX="96.0" layoutY="148.0" onAction="#handleTextsFieldAction" />
-                                                <TextField fx:id="endereco" layoutX="96.0" layoutY="183.0" onAction="#handleTextsFieldAction" prefHeight="25.0" prefWidth="325.0" />
-                                                <TextField fx:id="cep" layoutX="96.0" layoutY="217.0" onAction="#handleTextsFieldAction" />
-                                                <Label fx:id="resultadoCreate" layoutX="245.0" layoutY="14.0" />
-                                             </children>
-                                          </AnchorPane>
-                                      </content>
-                                    </ScrollPane>
+                                    <Label layoutX="14.0" layoutY="49.0" prefHeight="17.0" prefWidth="82.0" text="Razão Social:" />
+                                    <Label layoutX="14.0" layoutY="86.0" text="CPF:" />
+                                    <Label layoutX="12.0" layoutY="121.0" text="Telefone 1:" />
+                                    <Label layoutX="12.0" layoutY="152.0" text="Telefone 2:" />
+                                    <Label layoutX="12.0" layoutY="187.0" text="Endereço:" />
+                                    <Label layoutX="12.0" layoutY="221.0" text="CEP:" />
+                                    <Button fx:id="button" layoutX="242.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Salvar" />
+                                    <TextField fx:id="nome" layoutX="96.0" layoutY="45.0" prefHeight="25.0" prefWidth="329.0" />
+                                    <TextField fx:id="cpf" layoutX="96.0" layoutY="82.0" onAction="#handleTextsFieldAction" />
+                                    <TextField fx:id="tel1" layoutX="96.0" layoutY="117.0" onAction="#handleTextsFieldAction" />
+                                    <TextField fx:id="tel2" layoutX="96.0" layoutY="148.0" onAction="#handleTextsFieldAction" />
+                                    <TextField fx:id="endereco" layoutX="96.0" layoutY="183.0" onAction="#handleTextsFieldAction" prefHeight="25.0" prefWidth="325.0" />
+                                    <TextField fx:id="cep" layoutX="96.0" layoutY="217.0" onAction="#handleTextsFieldAction" />
+                                    <Label fx:id="resultadoCreate" layoutX="245.0" layoutY="14.0" />
                                  </children>
                               </AnchorPane>
-                        </content>
-                      </Tab>
-                    </tabs>
-                  </TabPane>
-                  <Button fx:id="listaAtual" layoutX="192.0" layoutY="684.0" mnemonicParsing="false" onAction="#verListaAction" text="ViewList" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
-      <ListView fx:id="clientlist" layoutX="-12.0" layoutY="37.0" prefHeight="284.0" prefWidth="12.0" />
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>
