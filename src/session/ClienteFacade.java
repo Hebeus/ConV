@@ -26,8 +26,13 @@ public class ClienteFacade {
            em.getTransaction().begin();
            em.persist(cliente);
            em.getTransaction().commit();
+           em.close();        
+       }
+       public void UpdateCliente(Cliente cliente){
+           em.getTransaction().begin();
+           em.merge(cliente);
+           em.getTransaction().commit();
            em.close();
-        
        }
         public List<Cliente> findClientes() {
             Query q = em.createQuery("SELECT c FROM Cliente c ");

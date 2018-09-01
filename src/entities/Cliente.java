@@ -16,6 +16,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -61,7 +62,9 @@ public class Cliente implements Serializable {
     private String cep;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clienteId")
     private Collection<ProdutoHasCliente> produtoHasClienteCollection;
-
+    @Transient
+    private boolean selected;
+    
     public Cliente() {
     }
 
@@ -132,6 +135,14 @@ public class Cliente implements Serializable {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     @XmlTransient
