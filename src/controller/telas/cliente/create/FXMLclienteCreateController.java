@@ -32,6 +32,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -47,6 +49,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
@@ -62,6 +67,8 @@ import session.ClienteFacade;
  */
 public class FXMLclienteCreateController extends Application implements Initializable {
 
+    @FXML
+    private Label tituloFicha;
     @FXML
     private Label nomeView;
     @FXML
@@ -108,14 +115,21 @@ public class FXMLclienteCreateController extends Application implements Initiali
     private Button botaoEdit;
     @FXML
     private Button botaoDelete;
+    @FXML
+    private Button deletarDialog;
+    @FXML
+    private Button cancelarDialog;
+    @FXML
+    private Pane atribuicoesPane;
+    @FXML
+    private Pane painelConfirmaDeleteCliente;
     private Cliente clienteSelecionado;
     @FXML
     protected ListProperty<Cliente> listProperty = new SimpleListProperty<>();
     private List<Cliente> clientes;
-    private final ClienteFacade clienteFacade;
+    private ClienteFacade clienteFacade;
     private final ClienteFacade clienteFacadeBusca;
-    
-    
+
     public FXMLclienteCreateController() {
         clienteSelecionado = new Cliente();
         clientes = new ArrayList<>();
@@ -149,9 +163,10 @@ public class FXMLclienteCreateController extends Application implements Initiali
         tableClientes.setItems(listaDeClientes());
 
     }
+
     /*
         Método que pega no banco a lista de clientes
-    */
+     */
     private ObservableList<Cliente> listaDeClientes() {
         clientes = clienteFacadeBusca.findClientes();
         return FXCollections.observableArrayList(clientes);
@@ -170,7 +185,7 @@ public class FXMLclienteCreateController extends Application implements Initiali
         cliente.setTelefone2(tel2.getText());
         cliente.setEndereco(endereco.getText());
         cliente.setCep(cep.getText());
-
+        clienteFacade = new ClienteFacade();
         //objeto que possui o comando sql de inserção
         clienteFacade.InsertCliente(cliente);
 
@@ -188,6 +203,7 @@ public class FXMLclienteCreateController extends Application implements Initiali
         endereco.setText("");
         cep.setText("");
     }
+
     /**
      * Ao clicar em um cliente na tabela, o clinete clicado é armazenado no
      * atributo 'clienteSelecionado' Serve para poder pegar um cliente exibir
@@ -204,74 +220,150 @@ public class FXMLclienteCreateController extends Application implements Initiali
         cepView.setText(clienteSelecionado.getCep());
         nomeEdit.setText(clienteSelecionado.getRazaoSocial());
     }
-    
+
+    private void preencherFichaCliente() {
+        nomeView.setText(clienteSelecionado.getRazaoSocial());
+        cpfView.setText(clienteSelecionado.getCpf());
+        tel1View.setText(clienteSelecionado.getTelefone1());
+        tel2View.setText(clienteSelecionado.getTelefone2());
+        enderecoView.setText(clienteSelecionado.getEndereco());
+        cepView.setText(clienteSelecionado.getCep());
+        nomeEdit.setText(clienteSelecionado.getRazaoSocial());
+    }
+
     @FXML
-    private void editaClienteAction(ActionEvent event){       
-        /*Alternado o nome do botão para "salvar".
-        quando o botão "editar" é apertado ele alterna seu nome para 
-        "salvar". 
-        */
-        if (botaoEdit.getText().equals("Editar")) {
-            botaoEdit.setText("Salvar");
-            botaoEdit.setTextFill(Paint.valueOf("#0a9331"));
-            //atualiza a ficha
-            selecionaClienteAction();
-            botaoDelete.setText("Cancelar");
-            botaoDelete.setTextFill(Paint.valueOf("#9d650b"));
-            tableClientes.setItems(listaDeClientes());
-            editTextVisibilidade(true);
-
-        }
-        /*Alternado o nome do botão para "editar".
-        quando o botão "salvar" é apertado ele alterna seu nome para 
-        "editar". 
-        */        
-        else if (botaoEdit.getText().equals("Salvar")) {
-
-            botaoEdit.setText("Editar");
-            botaoEdit.setTextFill(Paint.valueOf("#279ecd"));
-            botaoDelete.setText("Deletar");
-            botaoDelete.setTextFill(Paint.valueOf("#ba4423"));
-            editTextVisibilidade(false);
-
-            //Atualiza a instancia do cliente que está atualmente selecionado
-            atualizaDados();
-            //Atualiza os Label referente a cada atributo do cliente
-            atualizaTelaFixa();
-            
-            //Atualiza os dados do cliente no banco
-            clienteFacade.UpdateCliente(clienteSelecionado);
-            
-            /*
-            -Atualiza os dados da tabela;
-            -@listaDeClientes() faz a busca no banco e retorna a lista de
-            clientes atualizada.
+    private void editaClienteAction(ActionEvent event) {
+        if (clienteSelecionado.getId() != null) {
+            /*Alternado o nome do botão para "salvar".
+            quando o botão "editar" é apertado ele alterna seu nome para 
+            "salvar". 
             */
-            tableClientes.setItems(listaDeClientes());
-            tableClientes.refresh();
+            if (botaoEdit.getText().equals("Editar")) {
+                botaoEdit.setText("Salvar");
+                botaoEdit.setTextFill(Paint.valueOf("#0a9331"));
+                //atualiza a ficha
+                selecionaClienteAction();
+                botaoDelete.setText("Cancelar");
+                botaoDelete.setTextFill(Paint.valueOf("#9d650b"));
+                tableClientes.setItems(listaDeClientes());
+                editTextVisibilidade(true);
+                editLabelVisibilidade(false);
+
+                tituloFicha.setText("EDITANDO CLIENTE");
+                tituloFicha.setTextFill(Paint.valueOf("#279ecd"));
+
+            } /*Alternado o nome do botão para "editar".
+                quando o botão "salvar" é apertado ele alterna seu nome para 
+                "editar". 
+             */ else if (botaoEdit.getText().equals("Salvar")) {
+
+                botaoEdit.setText("Editar");
+                botaoEdit.setTextFill(Paint.valueOf("#279ecd"));
+                botaoDelete.setText("Deletar");
+                botaoDelete.setTextFill(Paint.valueOf("#ba4423"));
+                editTextVisibilidade(false);
+                editLabelVisibilidade(true);
+                tituloFicha.setText("FICHA DO CLIENTE");
+                tituloFicha.setTextFill(Paint.valueOf("#000000"));
+
+                //Atualiza a instancia do cliente que está atualmente selecionado
+                atualizaDados();
+                //Atualiza os Label referente a cada atributo do cliente
+                atualizaTelaFixa();
+                clienteFacade = new ClienteFacade();
+                //Atualiza os dados do cliente no banco
+                clienteFacade.UpdateCliente(clienteSelecionado);
+
+                /*
+                -Atualiza os dados da tabela;
+                -@listaDeClientes() faz a busca no banco e retorna a lista de
+                clientes atualizada.
+                 */
+                tableClientes.setItems(listaDeClientes());
+                tableClientes.refresh();
+            }
+        }else{
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("ATENÇÃO");
+            alert.setHeaderText(null);
+            alert.setContentText("Selecione um CLIENTE para EDITAR!");
+
+            alert.showAndWait();
         }
     }
+
     @FXML
-    private void deletaClienteAction(ActionEvent actionEvent){
-        if(botaoDelete.getText().equals("Cancelar")){
-            botaoEdit.setText("Editar");
-            botaoDelete.setText("Deletar");
-            editTextVisibilidade(false);
-            botaoDelete.setTextFill(Paint.valueOf("#ba4423"));
-            
+    private void deletaClienteAction(ActionEvent actionEvent) {
+        if (clienteSelecionado.getId() != null) {
+            if (botaoDelete.getText().equals("Cancelar")) {
+                botaoEdit.setText("Editar");
+                botaoDelete.setText("Deletar");
+                editTextVisibilidade(false);
+                botaoDelete.setTextFill(Paint.valueOf("#ba4423"));
+                botaoEdit.setTextFill(Paint.valueOf("#279ecd"));
+                tituloFicha.setText("FICHA DO CLIENTE");
+                tituloFicha.setTextFill(Paint.valueOf("#000000"));
+                editLabelVisibilidade(true);
+
+            } else if (botaoDelete.getText().equals("Deletar")) {
+                painelConfirmaDeleteCliente.setVisible(true);
+                atribuicoesPane.setDisable(true);
+                Effect gaussianBlur;
+                gaussianBlur = new GaussianBlur();
+                atribuicoesPane.setEffect(gaussianBlur);
+                tableClientes.setDisable(true);
+                tableClientes.setEffect(gaussianBlur);
+            }
+        }else{
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("ATENÇÃO");
+            alert.setHeaderText(null);
+            alert.setContentText("Selecione um CLIENTE para DELETAR!");
+
+            alert.showAndWait();
         }
     }
-    
+
     //Atualiza a instancia do cliente que está atualmente selecionado
-    private void atualizaDados(){
+    private void atualizaDados() {
         clienteSelecionado.setRazaoSocial(nomeEdit.getText());
-    
+
     }
+
     //Atualiza os Label referente a cada atributo do cliente
-    private void atualizaTelaFixa(){
-        nomeView.setText(nomeEdit.getText());    
+    private void atualizaTelaFixa() {
+        nomeView.setText(nomeEdit.getText());
     }
-    private void editTextVisibilidade(boolean v){
-          nomeEdit.setVisible(v);
+
+    private void editTextVisibilidade(boolean v) {
+        nomeEdit.setVisible(v);
+    }
+
+    private void editLabelVisibilidade(boolean v) {
+        nomeView.setVisible(v);
+    }
+
+    @FXML
+    private void cancelarDialogAction(ActionEvent actionEvent) {
+        painelConfirmaDeleteCliente.setVisible(false);
+        atribuicoesPane.setDisable(false);
+        atribuicoesPane.setEffect(null);
+        tableClientes.setDisable(false);
+        tableClientes.setEffect(null);
+    }
+
+    @FXML
+    private void deletarDialogAction(ActionEvent actionEvent) {
+        painelConfirmaDeleteCliente.setVisible(false);
+        atribuicoesPane.setDisable(false);
+        atribuicoesPane.setEffect(null);
+        tableClientes.setDisable(false);
+        tableClientes.setEffect(null);
+        clienteFacade = new ClienteFacade();
+        clienteFacade.DeleteCliente(clienteSelecionado);
+        clienteSelecionado = new Cliente();
+        preencherFichaCliente();
+        tableClientes.setItems(listaDeClientes());
+        tableClientes.refresh();
     }
 }

@@ -22,6 +22,10 @@ public class ClienteFacade {
     private final EntityManagerFactory factory = Persistence.createEntityManagerFactory("ControllerPU");
     private final EntityManager em = factory.createEntityManager();
 
+    public ClienteFacade() {
+        
+        
+    }
        public void InsertCliente(Cliente cliente ) {
            em.getTransaction().begin();
            em.persist(cliente);
@@ -29,12 +33,27 @@ public class ClienteFacade {
            em.close();        
        }
        public void UpdateCliente(Cliente cliente){
+           
            em.getTransaction().begin();
            em.merge(cliente);
            em.getTransaction().commit();
            em.close();
+           
        }
-        public List<Cliente> findClientes() {
+
+       public void DeleteCliente(Cliente cliente){
+        em.getTransaction().begin();
+
+        if (!em.contains(cliente)) {
+            cliente = em.merge(cliente);
+        }
+
+        em.remove(cliente);
+        em.getTransaction().commit();
+        em.close();
+    }
+       
+       public List<Cliente> findClientes() {
 //             em.getTransaction().begin();
             Query q = em.createQuery("SELECT c FROM Cliente c ");
             return q.getResultList();
