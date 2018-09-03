@@ -41,7 +41,7 @@
                               <Label fx:id="tel2View" layoutX="615.0" layoutY="165.0" prefHeight="17.0" prefWidth="105.0" underline="true" />
                               <Label fx:id="enderecoView" layoutX="615.0" layoutY="199.0" prefHeight="17.0" prefWidth="277.0" underline="true" />
                               <Label fx:id="cepView" layoutX="615.0" layoutY="232.0" prefHeight="17.0" prefWidth="102.0" underline="true" />
-                              <Button fx:id="botaoDelete" layoutX="717.0" layoutY="461.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Deletar" textFill="#ba4423" />
+                              <Button fx:id="botaoDelete" onAction="#deletaClienteAction"  layoutX="717.0" layoutY="461.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Deletar" textFill="#ba4423" />
                               <Label layoutX="644.0" layoutY="22.0" text="FICHA DO CLIENTE">
                                  <font>
                                     <Font size="16.0" />

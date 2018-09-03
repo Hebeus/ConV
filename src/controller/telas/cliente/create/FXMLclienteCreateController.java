@@ -93,11 +93,7 @@ public class FXMLclienteCreateController extends Application implements Initiali
     @FXML
     private Label resultadoCreate;
     @FXML
-    private ListView<Cliente> clientlist;
-    @FXML
     private TableView<Cliente> tableClientes;
-    @FXML
-    private TableColumn<Cliente, Boolean> selectCol;
     @FXML
     private TableColumn<Cliente, String> nomeCol;
     @FXML
@@ -112,10 +108,7 @@ public class FXMLclienteCreateController extends Application implements Initiali
     private Button botaoEdit;
     @FXML
     private Button botaoDelete;
-    @FXML
-    private Button listaAtual;
     private Cliente clienteSelecionado;
-    private Event event;
     @FXML
     protected ListProperty<Cliente> listProperty = new SimpleListProperty<>();
     private List<Cliente> clientes;
@@ -179,13 +172,12 @@ public class FXMLclienteCreateController extends Application implements Initiali
         cliente.setCep(cep.getText());
 
         //objeto que possui o comando sql de inserção
-     //   ClienteFacade clienteFacade = new ClienteFacade();
         clienteFacade.InsertCliente(cliente);
 
         resultadoCreate.setText("Cliente Salvo");
         clientes.add(cliente);
         //Atualiza a lista de clientes na tela
-        listProperty.set(FXCollections.observableArrayList(clientes));
+//        listProperty.set(FXCollections.observableArrayList(clientes));
         tableClientes.setItems(listaDeClientes());
         nomeCol.setCellFactory(TextFieldTableCell.forTableColumn());
         tableClientes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -215,39 +207,71 @@ public class FXMLclienteCreateController extends Application implements Initiali
     
     @FXML
     private void editaClienteAction(ActionEvent event){       
-        //salvar #38d63b
-        //editar #279ecd
-        //cancelar #9d650b
+        /*Alternado o nome do botão para "salvar".
+        quando o botão "editar" é apertado ele alterna seu nome para 
+        "salvar". 
+        */
         if (botaoEdit.getText().equals("Editar")) {
             botaoEdit.setText("Salvar");
             botaoEdit.setTextFill(Paint.valueOf("#0a9331"));
+            //atualiza a ficha
             selecionaClienteAction();
             botaoDelete.setText("Cancelar");
             botaoDelete.setTextFill(Paint.valueOf("#9d650b"));
-            nomeEdit.setVisible(true);
             tableClientes.setItems(listaDeClientes());
+            editTextVisibilidade(true);
+
         }
+        /*Alternado o nome do botão para "editar".
+        quando o botão "salvar" é apertado ele alterna seu nome para 
+        "editar". 
+        */        
         else if (botaoEdit.getText().equals("Salvar")) {
+
             botaoEdit.setText("Editar");
             botaoEdit.setTextFill(Paint.valueOf("#279ecd"));
             botaoDelete.setText("Deletar");
             botaoDelete.setTextFill(Paint.valueOf("#ba4423"));
-            nomeEdit.setVisible(false);
+            editTextVisibilidade(false);
+
+            //Atualiza a instancia do cliente que está atualmente selecionado
             atualizaDados();
+            //Atualiza os Label referente a cada atributo do cliente
             atualizaTelaFixa();
             
+            //Atualiza os dados do cliente no banco
             clienteFacade.UpdateCliente(clienteSelecionado);
+            
+            /*
+            -Atualiza os dados da tabela;
+            -@listaDeClientes() faz a busca no banco e retorna a lista de
+            clientes atualizada.
+            */
             tableClientes.setItems(listaDeClientes());
             tableClientes.refresh();
         }
     }
+    @FXML
+    private void deletaClienteAction(ActionEvent actionEvent){
+        if(botaoDelete.getText().equals("Cancelar")){
+            botaoEdit.setText("Editar");
+            botaoDelete.setText("Deletar");
+            editTextVisibilidade(false);
+            botaoDelete.setTextFill(Paint.valueOf("#ba4423"));
+            
+        }
+    }
     
+    //Atualiza a instancia do cliente que está atualmente selecionado
     private void atualizaDados(){
         clienteSelecionado.setRazaoSocial(nomeEdit.getText());
     
     }
+    //Atualiza os Label referente a cada atributo do cliente
     private void atualizaTelaFixa(){
-        nomeView.setText(nomeEdit.getText());
-      
+        nomeView.setText(nomeEdit.getText());    
+    }
+    private void editTextVisibilidade(boolean v){
+          nomeEdit.setVisible(v);
     }
 }
