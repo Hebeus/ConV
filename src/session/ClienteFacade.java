@@ -35,6 +35,7 @@ public class ClienteFacade {
            em.close();
        }
         public List<Cliente> findClientes() {
+//             em.getTransaction().begin();
             Query q = em.createQuery("SELECT c FROM Cliente c ");
             return q.getResultList();
         }

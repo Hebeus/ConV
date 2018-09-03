@@ -49,6 +49,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.eclipse.persistence.jpa.jpql.parser.UpdateItem;
@@ -60,7 +61,7 @@ import session.ClienteFacade;
  * @author wesle
  */
 public class FXMLclienteCreateController extends Application implements Initializable {
-    
+
     @FXML
     private Label nomeView;
     @FXML
@@ -73,6 +74,8 @@ public class FXMLclienteCreateController extends Application implements Initiali
     private Label enderecoView;
     @FXML
     private Label cepView;
+    @FXML
+    private TextField nomeEdit;
     @FXML
     private TextField nome;
     @FXML
@@ -106,16 +109,25 @@ public class FXMLclienteCreateController extends Application implements Initiali
     @FXML
     private TableColumn<Cliente, String> cepCol;
     @FXML
+    private Button botaoEdit;
+    @FXML
+    private Button botaoDelete;
+    @FXML
     private Button listaAtual;
     private Cliente clienteSelecionado;
     private Event event;
     @FXML
     protected ListProperty<Cliente> listProperty = new SimpleListProperty<>();
     private List<Cliente> clientes;
-
+    private final ClienteFacade clienteFacade;
+    private final ClienteFacade clienteFacadeBusca;
+    
+    
     public FXMLclienteCreateController() {
         clienteSelecionado = new Cliente();
         clientes = new ArrayList<>();
+        clienteFacadeBusca = new ClienteFacade();
+        clienteFacade = new ClienteFacade();
         clientes = listaDeClientes();
     }
 
@@ -141,33 +153,19 @@ public class FXMLclienteCreateController extends Application implements Initiali
         cepCol.setCellValueFactory(
                 new PropertyValueFactory<>("cep"));
 
-        nomeCol.setCellFactory(
-                TextFieldTableCell.forTableColumn());
-
         tableClientes.setItems(listaDeClientes());
 
     }
-
+    /*
+        Método que pega no banco a lista de clientes
+    */
     private ObservableList<Cliente> listaDeClientes() {
-        ClienteFacade clienteFacade = new ClienteFacade();
-        clientes = clienteFacade.findClientes();
+        clientes = clienteFacadeBusca.findClientes();
         return FXCollections.observableArrayList(clientes);
     }
 
-    @FXML
-    private void handleTextsFieldAction(ActionEvent event) {
-        resultadoCreate.setText("sdfs");
-    }
-
-    @FXML
-    private void verListaAction(ActionEvent event) {
-
-        // TableView t = new TableView(FXCollections.observableArrayList());
-        listProperty.set(FXCollections.observableArrayList());
-        resultadoCreate.setText("sdfs");
-
-    }
-
+    //Evento chamado quando um novo cliente é criado apertando no botão de 
+    //salvar na aba 'cliente'
     @FXML
     private void handleButtonAction(ActionEvent event) throws InterruptedException {
 
@@ -180,9 +178,8 @@ public class FXMLclienteCreateController extends Application implements Initiali
         cliente.setEndereco(endereco.getText());
         cliente.setCep(cep.getText());
 
-//        Cliente c = (Cliente) selectCol.getUserData();
         //objeto que possui o comando sql de inserção
-        ClienteFacade clienteFacade = new ClienteFacade();
+     //   ClienteFacade clienteFacade = new ClienteFacade();
         clienteFacade.InsertCliente(cliente);
 
         resultadoCreate.setText("Cliente Salvo");
@@ -192,107 +189,65 @@ public class FXMLclienteCreateController extends Application implements Initiali
         tableClientes.setItems(listaDeClientes());
         nomeCol.setCellFactory(TextFieldTableCell.forTableColumn());
         tableClientes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-//         resultadoCreate.setText("");
         nome.setText("");
         cpf.setText("");
         tel1.setText("");
         tel2.setText("");
         endereco.setText("");
         cep.setText("");
-        //label.setText("Olá Mundo!");
-
     }
-
+    /**
+     * Ao clicar em um cliente na tabela, o clinete clicado é armazenado no
+     * atributo 'clienteSelecionado' Serve para poder pegar um cliente exibir
+     * sua fixa na tela ao lado e para poder edita-lo futuramente.
+     */
     @FXML
-    private void editNomeAction() {
+    private void selecionaClienteAction() {
         clienteSelecionado = tableClientes.getSelectionModel().getSelectedItem();
-//        System.out.println("Cliente: " + clienteSelecionado.getRazaoSocial());
         nomeView.setText(clienteSelecionado.getRazaoSocial());
         cpfView.setText(clienteSelecionado.getCpf());
         tel1View.setText(clienteSelecionado.getTelefone1());
         tel2View.setText(clienteSelecionado.getTelefone2());
         enderecoView.setText(clienteSelecionado.getEndereco());
         cepView.setText(clienteSelecionado.getCep());
+        nomeEdit.setText(clienteSelecionado.getRazaoSocial());
     }
-
-    public void pegaNomeDoItemSelecionado() {
-
-        tableClientes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
-                //Check whether item is selected and set value of selected item to Label
-                if (tableClientes.getSelectionModel().getSelectedItem() != null) {
-                    TableViewSelectionModel selectionModel = tableClientes.getSelectionModel();
-                    ObservableList selectedCells = selectionModel.getSelectedCells();
-                    TablePosition tablePosition = (TablePosition) selectedCells.get(0);
-                    Object val = tablePosition.getTableColumn().getCellData(newValue);
-                    System.out.println("Selected Value" + val);
-                }
-            }
-        });
-    }
-}
-
-class EditingCell extends TableCell<Cliente, String> {
-
-    private TextField textField;
-
-    public EditingCell() {
-    }
-
-    @Override
-    public void startEdit() {
-        if (!isEmpty()) {
-            super.startEdit();
-            createTextField();
-            setText(null);
-            setGraphic(textField);
-            textField.selectAll();
+    
+    @FXML
+    private void editaClienteAction(ActionEvent event){       
+        //salvar #38d63b
+        //editar #279ecd
+        //cancelar #9d650b
+        if (botaoEdit.getText().equals("Editar")) {
+            botaoEdit.setText("Salvar");
+            botaoEdit.setTextFill(Paint.valueOf("#0a9331"));
+            selecionaClienteAction();
+            botaoDelete.setText("Cancelar");
+            botaoDelete.setTextFill(Paint.valueOf("#9d650b"));
+            nomeEdit.setVisible(true);
+            tableClientes.setItems(listaDeClientes());
+        }
+        else if (botaoEdit.getText().equals("Salvar")) {
+            botaoEdit.setText("Editar");
+            botaoEdit.setTextFill(Paint.valueOf("#279ecd"));
+            botaoDelete.setText("Deletar");
+            botaoDelete.setTextFill(Paint.valueOf("#ba4423"));
+            nomeEdit.setVisible(false);
+            atualizaDados();
+            atualizaTelaFixa();
+            
+            clienteFacade.UpdateCliente(clienteSelecionado);
+            tableClientes.setItems(listaDeClientes());
+            tableClientes.refresh();
         }
     }
-
-    @Override
-    public void cancelEdit() {
-        super.cancelEdit();
-
-        setText((String) getItem());
-        setGraphic(null);
+    
+    private void atualizaDados(){
+        clienteSelecionado.setRazaoSocial(nomeEdit.getText());
+    
     }
-
-    @Override
-    public void updateItem(String item, boolean empty) {
-        super.updateItem(item, empty);
-
-        if (empty) {
-            setText(null);
-            setGraphic(null);
-        } else if (isEditing()) {
-            if (textField != null) {
-                textField.setText(getString());
-            }
-            setText(null);
-            setGraphic(textField);
-        } else {
-            setText(getString());
-            setGraphic(null);
-        }
-    }
-
-    private void createTextField() {
-        textField = new TextField(getString());
-        textField.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
-        textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0,
-                    Boolean arg1, Boolean arg2) {
-                if (!arg2) {
-                    commitEdit(textField.getText());
-                }
-            }
-        });
-    }
-
-    private String getString() {
-        return getItem() == null ? "" : getItem().toString();
+    private void atualizaTelaFixa(){
+        nomeView.setText(nomeEdit.getText());
+      
     }
 }
