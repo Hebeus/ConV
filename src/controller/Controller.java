@@ -44,8 +44,8 @@ private static CategoriaProduto categoriaProduto;
 
     public static void main(String[] args) throws SQLException {
       
-         ProdutoFacade produtoFacade = new ProdutoFacade();
-         List<Produto> pList =produtoFacade.findProdutoByCategoria(1);      
+//         ProdutoFacade produtoFacade = new ProdutoFacade();
+//         List<Produto> pList =produtoFacade.findProdutoByCategoria(1);      
        //ProdutoFacade produtoFacade = new ProdutoFacade();
 //       ProdutoFacade produtoFacade = new UssFacade();
 //         List<Uss> pList =produtoFacade.findByDescricao("test");

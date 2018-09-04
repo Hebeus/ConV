@@ -7,7 +7,9 @@ package controller.telas.categoria_produto.create;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableView;
 
 /**
  * FXML Controller class
@@ -15,6 +17,8 @@ import javafx.fxml.Initializable;
  * @author wesle
  */
 public class FXMLcategoriaProdutoCreateController implements Initializable {
+    @FXML
+    private TableView categoryTable;
 
     /**
      * Initializes the controller class.
