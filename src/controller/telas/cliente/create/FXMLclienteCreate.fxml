@@ -89,12 +89,12 @@
                                     <Label layoutX="12.0" layoutY="187.0" text="Endereço:" />
                                     <Label layoutX="12.0" layoutY="221.0" text="CEP:" />
                                     <Button fx:id="button" layoutX="242.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Salvar" />
-                                    <TextField fx:id="nome" layoutX="96.0" layoutY="45.0" prefHeight="25.0" prefWidth="329.0" />
-                                    <TextField fx:id="cpf" layoutX="96.0" layoutY="82.0" />
-                                    <TextField fx:id="tel1" layoutX="96.0" layoutY="117.0" />
-                                    <TextField fx:id="tel2" layoutX="96.0" layoutY="148.0" />
-                                    <TextField fx:id="endereco" layoutX="96.0" layoutY="183.0" prefHeight="25.0" prefWidth="325.0" />
-                                    <TextField fx:id="cep" layoutX="96.0" layoutY="217.0" />
+                                    <TextField fx:id="nome" layoutX="96.0" layoutY="45.0" prefHeight="25.0" prefWidth="329.0" promptText="Nome Completo" />
+                                    <TextField fx:id="cpf" layoutX="96.0" layoutY="82.0" promptText="111.111.111-11" />
+                                    <TextField fx:id="tel1" layoutX="96.0" layoutY="117.0" promptText="(21)00000-0000" />
+                                    <TextField fx:id="tel2" layoutX="96.0" layoutY="148.0" promptText="(71)1111-1111" />
+                                    <TextField fx:id="endereco" layoutX="96.0" layoutY="183.0" prefHeight="25.0" prefWidth="325.0" promptText="Cidade, Bairro , etc" />
+                                    <TextField fx:id="cep" layoutX="96.0" layoutY="217.0" promptText="45880-000" />
                                     <Label fx:id="resultadoCreate" layoutX="245.0" layoutY="14.0" />
                                  </children>
                               </AnchorPane>

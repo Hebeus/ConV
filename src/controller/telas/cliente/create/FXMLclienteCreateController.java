@@ -180,6 +180,8 @@ public class FXMLclienteCreateController extends Application implements Initiali
         MaskFieldUtil.foneField(this.tel2);
         MaskFieldUtil.cepField(this.cep);
         
+        tableClientes.refresh();
+        
       //  MaskFieldUtil.serialTextField(nome);
         
 
