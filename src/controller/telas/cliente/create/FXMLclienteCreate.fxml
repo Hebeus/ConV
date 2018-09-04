@@ -26,8 +26,8 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="deletarDialog" onAction="#deletarDialogAction" layoutX="43.0" layoutY="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Deletar" textFill="#ba4423" />
-                                    <Button fx:id="cancelarDialog" onAction="#cancelarDialogAction" cancelButton="true" layoutX="200.0" layoutY="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Cancelar" />
+                                    <Button fx:id="deletarDialog" layoutX="43.0" layoutY="150.0" mnemonicParsing="false" onAction="#deletarDialogAction" prefHeight="25.0" prefWidth="117.0" text="Deletar" textFill="#ba4423" />
+                                    <Button fx:id="cancelarDialog" cancelButton="true" layoutX="200.0" layoutY="150.0" mnemonicParsing="false" onAction="#cancelarDialogAction" prefHeight="25.0" prefWidth="117.0" text="Cancelar" />
                                  </children>
                               </Pane>
                               <TableView fx:id="tableClientes" layoutX="7.0" layoutY="-2.0" onMouseClicked="#selecionaClienteAction" prefHeight="567.0" prefWidth="480.0">
@@ -36,27 +36,31 @@
                                     <TableColumn fx:id="cpfCol" prefWidth="106.0" text="CPF" />
                                     <TableColumn fx:id="numeroCol" prefWidth="105.0" text="Telefone" />
                                     <TableColumn fx:id="enderecoCol" minWidth="0.0" prefWidth="337.0" text="Endereço" />
-                                    <TableColumn fx:id="cepCol" prefWidth="91.0" text="CEP" />
-                                    <TableColumn fx:id="nomeCol1" onEditCommit="#selecionaClienteAction" onEditStart="#selecionaClienteAction" prefWidth="268.0" text="Nome" />
+                                    <TableColumn fx:id="cepCol" prefWidth="91.0" text="CEP" />                                    
                                  </columns>
                               </TableView>
                               <Pane fx:id="atribuicoesPane" layoutX="485.0" prefHeight="552.0" prefWidth="450.0">
                                  <children>
                                     <TextField fx:id="nomeEdit" layoutX="120.0" layoutY="91.0" prefHeight="25.0" prefWidth="280.0" visible="false" />
+                                     <TextField fx:id="cpfEdit" layoutX="120.0" layoutY="121.0" prefHeight="25.0" prefWidth="97.0" visible="false" />
+                                      <TextField fx:id="tel1Edit" layoutX="120.0" layoutY="151.0" prefHeight="25.0" prefWidth="97.0" visible="false" />
+                                       <TextField fx:id="tel2Edit" layoutX="120.0" layoutY="181.0" prefHeight="25.0" prefWidth="97.0" visible="false" />
+                                        <TextField fx:id="enderecoEdit" layoutX="119.0" layoutY="211.0" prefHeight="25.0" prefWidth="280.0" visible="false" />
+                                         <TextField fx:id="cepEdit" layoutX="120.0" layoutY="241.0" prefHeight="25.0" prefWidth="97.0" visible="false" />
                                     <Label fx:id="tituloFicha" layoutX="140.0" layoutY="25.0" text="FICHA DO CLIENTE">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
                                     <Button fx:id="botaoDelete" layoutX="230.0" layoutY="480.0" mnemonicParsing="false" onAction="#deletaClienteAction" prefHeight="25.0" prefWidth="117.0" text="Deletar" textFill="#ba4423" />
-                                    <Label fx:id="cepView" layoutX="120.0" layoutY="259.0" prefHeight="17.0" prefWidth="102.0" underline="true" />
-                                    <Label fx:id="enderecoView" layoutX="120.0" layoutY="223.0" prefHeight="17.0" prefWidth="277.0" underline="true" />
+                                    <Label fx:id="cepView" layoutX="120.0" layoutY="246.0" prefHeight="17.0" prefWidth="102.0" underline="true" />
+                                    <Label fx:id="enderecoView" layoutX="120.0" layoutY="216.0" prefHeight="17.0" prefWidth="277.0" underline="true" />
                                     <Label fx:id="tel2View" layoutX="120.0" layoutY="186.0" prefHeight="17.0" prefWidth="105.0" underline="true" />
                                     <Label fx:id="tel1View" layoutX="120.0" layoutY="153.0" prefHeight="17.0" prefWidth="111.0" underline="true" />
                                     <Label fx:id="cpfView" layoutX="120.0" layoutY="124.0" prefHeight="17.0" prefWidth="110.0" underline="true" />
                                     <Label fx:id="nomeView" layoutX="120.0" layoutY="95.0" prefHeight="17.0" prefWidth="274.0" underline="true" />
-                                    <Label layoutX="20.0" layoutY="259.0" text="CEP:" />
-                                    <Label layoutX="20.0" layoutY="223.0" text="Endereço:" />
+                                    <Label layoutX="20.0" layoutY="246.0" text="CEP:" />
+                                    <Label layoutX="20.0" layoutY="216.0" text="Endereço:" />
                                     <Label layoutX="20.0" layoutY="186.0" text="Telefone 2:" />
                                     <Label layoutX="20.0" layoutY="153.0" text="Telefone 1:" />
                                     <Label layoutX="20.0" layoutY="124.0" text="CPF:" />

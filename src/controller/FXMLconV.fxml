@@ -15,14 +15,15 @@
       <Accordion layoutX="28.0" layoutY="19.0" />
       <MenuBar layoutY="-1.0" prefHeight="25.0" prefWidth="553.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="Gerenciar">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" text="Categoria de Produto" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="clienteMenuItem" mnemonicParsing="false" text="Cliente" onAction="#handleButtonAction"  />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Produto" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Registro de Vendas" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -32,7 +33,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <ToolBar layoutY="24.0" prefHeight="40.0" prefWidth="551.0">
+<!--      <ToolBar layoutY="24.0" prefHeight="40.0" prefWidth="551.0">
         <items>
           <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Categoria de Produto" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Produto" />
@@ -41,6 +42,6 @@
             </Button>
             <Button mnemonicParsing="false" prefWidth="125.0" text="Registro de Vendas" />
         </items>
-      </ToolBar>
+      </ToolBar>-->
     </children>
 </AnchorPane>

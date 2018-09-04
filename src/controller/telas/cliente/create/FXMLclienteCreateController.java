@@ -57,8 +57,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javax.swing.text.MaskFormatter;
 import org.eclipse.persistence.jpa.jpql.parser.UpdateItem;
 import session.ClienteFacade;
+import util.MaskFieldUtil;
 
 /**
  * FXML Controller class
@@ -83,6 +85,16 @@ public class FXMLclienteCreateController extends Application implements Initiali
     private Label cepView;
     @FXML
     private TextField nomeEdit;
+    @FXML
+    private TextField cpfEdit;
+    @FXML
+    private TextField tel1Edit;
+    @FXML
+    private TextField tel2Edit;
+    @FXML
+    private TextField enderecoEdit;
+    @FXML
+    private TextField cepEdit;
     @FXML
     private TextField nome;
     @FXML
@@ -161,6 +173,15 @@ public class FXMLclienteCreateController extends Application implements Initiali
                 new PropertyValueFactory<>("cep"));
 
         tableClientes.setItems(listaDeClientes());
+        
+        //Determinando os formatos dos atributos
+        MaskFieldUtil.cpfField(this.cpf);
+        MaskFieldUtil.foneField(this.tel1);
+        MaskFieldUtil.foneField(this.tel2);
+        MaskFieldUtil.cepField(this.cep);
+        
+      //  MaskFieldUtil.serialTextField(nome);
+        
 
     }
 
@@ -178,7 +199,6 @@ public class FXMLclienteCreateController extends Application implements Initiali
     private void handleButtonAction(ActionEvent event) throws InterruptedException {
 
         Cliente cliente = new Cliente();
-
         cliente.setRazaoSocial(nome.getText());
         cliente.setCpf(cpf.getText());
         cliente.setTelefone1(tel1.getText());
@@ -212,13 +232,20 @@ public class FXMLclienteCreateController extends Application implements Initiali
     @FXML
     private void selecionaClienteAction() {
         clienteSelecionado = tableClientes.getSelectionModel().getSelectedItem();
-        nomeView.setText(clienteSelecionado.getRazaoSocial());
-        cpfView.setText(clienteSelecionado.getCpf());
-        tel1View.setText(clienteSelecionado.getTelefone1());
-        tel2View.setText(clienteSelecionado.getTelefone2());
-        enderecoView.setText(clienteSelecionado.getEndereco());
-        cepView.setText(clienteSelecionado.getCep());
-        nomeEdit.setText(clienteSelecionado.getRazaoSocial());
+        if (clienteSelecionado != null) {
+            nomeView.setText(clienteSelecionado.getRazaoSocial());
+            cpfView.setText(clienteSelecionado.getCpf());
+            tel1View.setText(clienteSelecionado.getTelefone1());
+            tel2View.setText(clienteSelecionado.getTelefone2());
+            enderecoView.setText(clienteSelecionado.getEndereco());
+            cepView.setText(clienteSelecionado.getCep());
+            nomeEdit.setText(clienteSelecionado.getRazaoSocial());
+            cpfEdit.setText(clienteSelecionado.getCep());
+            tel1Edit.setText(clienteSelecionado.getTelefone1());
+            tel2Edit.setText(clienteSelecionado.getTelefone2());
+            enderecoEdit.setText(clienteSelecionado.getEndereco());
+            cepEdit.setText(clienteSelecionado.getCep());
+        }
     }
 
     private void preencherFichaCliente() {
@@ -229,6 +256,11 @@ public class FXMLclienteCreateController extends Application implements Initiali
         enderecoView.setText(clienteSelecionado.getEndereco());
         cepView.setText(clienteSelecionado.getCep());
         nomeEdit.setText(clienteSelecionado.getRazaoSocial());
+        cpfEdit.setText(clienteSelecionado.getCep());
+        tel1Edit.setText(clienteSelecionado.getTelefone1());
+        tel2Edit.setText(clienteSelecionado.getTelefone2());
+        enderecoEdit.setText(clienteSelecionado.getEndereco());
+        cepEdit.setText(clienteSelecionado.getCep());
     }
 
     @FXML
@@ -237,7 +269,7 @@ public class FXMLclienteCreateController extends Application implements Initiali
             /*Alternado o nome do botão para "salvar".
             quando o botão "editar" é apertado ele alterna seu nome para 
             "salvar". 
-            */
+             */
             if (botaoEdit.getText().equals("Editar")) {
                 botaoEdit.setText("Salvar");
                 botaoEdit.setTextFill(Paint.valueOf("#0a9331"));
@@ -282,7 +314,7 @@ public class FXMLclienteCreateController extends Application implements Initiali
                 tableClientes.setItems(listaDeClientes());
                 tableClientes.refresh();
             }
-        }else{
+        } else {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("ATENÇÃO");
             alert.setHeaderText(null);
@@ -314,7 +346,7 @@ public class FXMLclienteCreateController extends Application implements Initiali
                 tableClientes.setDisable(true);
                 tableClientes.setEffect(gaussianBlur);
             }
-        }else{
+        } else {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("ATENÇÃO");
             alert.setHeaderText(null);
@@ -327,20 +359,40 @@ public class FXMLclienteCreateController extends Application implements Initiali
     //Atualiza a instancia do cliente que está atualmente selecionado
     private void atualizaDados() {
         clienteSelecionado.setRazaoSocial(nomeEdit.getText());
+        clienteSelecionado.setCpf(cpfEdit.getText());
+        clienteSelecionado.setTelefone1(tel1Edit.getText());
+        clienteSelecionado.setTelefone2(tel2Edit.getText());
+        clienteSelecionado.setEndereco(enderecoEdit.getText());
+        clienteSelecionado.setCep(cepEdit.getText());
 
     }
 
     //Atualiza os Label referente a cada atributo do cliente
     private void atualizaTelaFixa() {
         nomeView.setText(nomeEdit.getText());
+        cpfView.setText(cpfEdit.getText());
+        tel1View.setText(tel1Edit.getText());
+        tel2View.setText(tel2Edit.getText());
+        enderecoView.setText(enderecoEdit.getText());
+        cepView.setText(cepEdit.getText());
     }
 
     private void editTextVisibilidade(boolean v) {
         nomeEdit.setVisible(v);
+        cpfEdit.setVisible(v);
+        tel1Edit.setVisible(v);
+        tel2Edit.setVisible(v);
+        enderecoEdit.setVisible(v);
+        cepEdit.setVisible(v);
     }
 
     private void editLabelVisibilidade(boolean v) {
         nomeView.setVisible(v);
+        cpfView.setVisible(v);
+        tel1View.setVisible(v);
+        tel2View.setVisible(v);
+        enderecoView.setVisible(v);
+        cepView.setVisible(v);
     }
 
     @FXML

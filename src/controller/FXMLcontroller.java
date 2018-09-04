@@ -21,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 /**
@@ -34,6 +35,8 @@ public class FXMLcontroller implements Initializable {
     private Label label;
     @FXML
     private Button button;
+    @FXML
+    private MenuItem clienteMenuItem;
     private CategoriaProduto categoriaProduto;
 
     public FXMLcontroller() {
